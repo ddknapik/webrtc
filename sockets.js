@@ -1,9 +1,10 @@
-var socketio    = require('socket.io'),
-    _           = require('lodash'),
-    guestId     = 1,
-    usernames   = {},
-    namesTaken  = [],
-    currentRoom = [],
+var socketio      = require('socket.io'),
+    _             = require('lodash'),
+    guestId       = 1,
+    usernames     = {},
+    namesTaken    = [],
+    currentRoom   = [],
+    conversations = [],
     io, createOrJoin, assignGuestId, otherUsersInRoom, joinRoom,
     usernamesInRoom, refreshActiveUsers;
 
@@ -73,6 +74,37 @@ exports.listen = function (server) {
             idIndex = namesTaken.indexOf(usernames[socket.id]);
             delete namesTaken[idIndex];
             delete usernames[socket.id];
+        });
+
+        socket.on('answerCall', function (conversationId) {
+            var conversation;
+            conversation = _.find(conversations, function (el) {
+                return el.room === conversationId;
+            });
+            io.sockets.connected[conversation.callee].emit('message', {
+                body: 'Jest nieźle :)'
+            })
+        });
+
+        socket.on('call', function (recipient) {
+            var recipientId, randomNumber, conversationId;
+            
+            randomNumber   = Math.floor((Math.random() * 9999) + 1);
+            conversationId = randomNumber.toString()
+            recipientId    = _.findKey(usernames, function (name) {
+                return name === recipient
+            });
+            
+            conversations.push({
+                callee: socket.id,
+                recipient: recipientId,
+                room: conversationId
+            })
+            recipientSocket = io.sockets.connected[recipientId];
+            recipientSocket.emit('callReceived', {
+                callee: usernames[socket.id],
+                room: conversationId
+            })
         });
         
         socket.on('rename', function (name) {

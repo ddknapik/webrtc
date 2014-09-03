@@ -1,5 +1,5 @@
 (function () {
-    var socket, ui, currentName, updateCurrentName;
+    var socket, ui, currentName, updateCurrentName, bindActiveUsers;
 
     socket = io();
 
@@ -19,11 +19,24 @@
         return false;
     });
 
+    bindActiveUsers = function () {
+        $('.call').click(function () {
+            var recipient;
+            recipient = $(this).data('user');
+            socket.emit('call', recipient)
+        });
+    }
+
     updateCurrentName = function (name) {
         currentName = name;
         ui.$currentName.text(name);
         ui.$nameForm.find('#name').val('');
     }
+
+    socket.on('callReceived', function (res) {
+        console.log(res.callee + ' wants to talk with you.');
+        socket.emit('answerCall', res.room);
+    });
 
     socket.on('idAssigned', function (res) {
         updateCurrentName(res.name);
@@ -57,9 +70,10 @@
             if (userName === currentName) { return ''; }
             return '<tr>' +
                         '<td>' + userName + '</td>' +
-                        '<td><span id = "call" class="glyphicon glyphicon-earphone"</td>' +
+                        '<td><span data-user="' + userName + '" class="call glyphicon glyphicon-earphone"></td>' +
                     '</tr>';
         });
         ui.$activeUsers.html(list);
+        bindActiveUsers();
     });
 }());

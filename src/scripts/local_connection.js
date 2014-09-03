@@ -1,5 +1,5 @@
 (function () {
-    var ui, localStream, showPreview;
+    var ui, localStream, showPreview, setupLocalVideo, showTips;
 
     ui = {
         $sidebar: $('#sidebar'),
@@ -9,10 +9,24 @@
     };
 
     ui.$previewBtn.click(function () {
-        ui.$jumbotron.fadeOut('normal');
-        $('<video id="local-video" autoplay></div>').prependTo(ui.$sidebar);
+        ui.$jumbotron.html('<video id="local-video" autoplay></div>')
         showPreview();
     });
+
+    setupLocalVideo = function (stream, $videoEl) {
+        var videoSrc;
+        localStream = stream
+        videoSrc    = window.URL ? URL.createObjectURL(stream) : stream;
+        $videoEl.attr('src', videoSrc);
+        $videoEl.show();
+    };
+
+    showTips = function () {
+        ui.$jumbotron.append(
+            '<h1>Great job!</h1>' +
+            '<p>What are you waiting for? Just call any of your friends listed on the left!</p>'
+        );
+    }
 
     showPreview = function () {
         var $videoEl;
@@ -25,12 +39,9 @@
             audio: true,
             video: true
         }, function (stream) {
-            var videoSrc;
             console.log('Local stream obtained.');
-            localStream = stream
-            videoSrc    = window.URL ? URL.createObjectURL(stream) : stream;
-            $videoEl.attr('src', videoSrc);
-            $videoEl.show();
+            setupLocalVideo(stream, $videoEl);
+            showTips();
         }, function (err) {
             console.log(err);
         });

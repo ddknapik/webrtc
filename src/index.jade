@@ -9,7 +9,7 @@ html
         .col-md-12
           h1 WebRTC
       .row
-        #sidebar.col-sm-5.col.md-3.col-lg-3
+        #sidebar.col-sm-5.col-md-3.col-lg-3
           p
             | You are currently known as 
             strong#current-name
@@ -23,12 +23,14 @@ html
                 th(colspan=2) Active users
             tbody
         #main.col-sm-7.col-md-9.col-lg-9
-          .jumbotron
-            h1 Hello!
-            p.
-              This web application aims at providing a way to communicate with your friends
-              without a need to install any external software!
-            #preview-btn.btn.btn-primary.btn-lg Turn on the camera
+          .row
+            .col-md-12
+              .jumbotron
+                h1 Hello!
+                p.
+                  This web application aims at providing a way to communicate with your friends
+                  without a need to install any external software!
+                #preview-btn.btn.btn-primary.btn-lg Turn on the camera
     script(type='text/javascript', src='/assets/vendor/js/jquery.js')
     script(type='text/javascript', src='/assets/vendor/js/lodash.compat.js')
     script(type='text/javascript', src='/socket.io/socket.io.js')
