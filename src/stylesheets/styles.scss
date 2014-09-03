@@ -1,0 +1,19 @@
+#name-form {
+  button {
+    margin-left: 5px;
+  }
+}
+
+#active-users {
+  tr #call {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+#local-video {
+  border: 10px solid #eee;
+  border-radius: 7px;
+  width: 300px;
+}
