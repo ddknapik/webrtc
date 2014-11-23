@@ -1,14 +1,8 @@
-var socketio      = require('socket.io'),
-    _             = require('lodash'),
-    guestId       = 1,
-    usernames     = {},
-    namesTaken    = [],
-    currentRoom   = [],
-    conversations = [],
-    io, assignGuestId, otherUsersInRoom, joinRoom,
-    usernamesInRoom, refreshActiveUsers;
+var socketio = require('socket.io'), io;
 
 exports.listen = function (server) {
+    io = socketio.listen(server);
+
     io.sockets.on('connection', function (socket) {
         socket.on('message', function (message) {
             log('# got message: ', message);
