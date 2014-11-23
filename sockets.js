@@ -5,10 +5,10 @@ var socketio      = require('socket.io'),
     namesTaken    = [],
     currentRoom   = [],
     conversations = [],
-    io, createOrJoin, assignGuestId, otherUsersInRoom, joinRoom,
+    io, assignGuestId, otherUsersInRoom, joinRoom,
     usernamesInRoom, refreshActiveUsers;
 
-assignGuestId = function (socket) {
+function assignGuestId(socket) {
     var name;
     name = 'Guest#' + guestId;
     usernames[socket.id] = name;
@@ -17,9 +17,9 @@ assignGuestId = function (socket) {
         name: name
     });
     ++guestId;
-};
+}
 
-usernamesInRoom = function (room) {
+function usernamesInRoom(room) {
     var users, collectedUsernames = [];
     users = Object.keys( io.nsps['/'].adapter.rooms[room] || {} );
     for (var index in users) {
@@ -29,10 +29,10 @@ usernamesInRoom = function (room) {
     return collectedUsernames;
 }
 
-otherUsersInRoom = function (room, socket) {
+function otherUsersInRoom(room, socket) {
     var users, message;
     users = Object.keys( io.nsps['/'].adapter.rooms[room] || {} );
-    if (users.length === 1) { return 'You are the very first user here.' };
+    if (users.length === 1) { return 'You are the very first user here.'; }
     message = 'Other users in the room: ';
     for (var index in users) {
         var socketId = users[index];
@@ -41,9 +41,9 @@ otherUsersInRoom = function (room, socket) {
         message  += usernames[socketId];
     }
     return message;
-};
+}
 
-joinRoom = function (socket, room) {
+function joinRoom(socket, room) {
     socket.join(room);
     currentRoom[socket.id] = room;
     socket.emit('joinRoom', { room: room });
@@ -56,11 +56,11 @@ joinRoom = function (socket, room) {
     refreshActiveUsers(room);
 }
 
-refreshActiveUsers = function (room) {
+function refreshActiveUsers() {
     io.emit('activeUsers', {
         users: usernamesInRoom('Public')
     });
-};
+}
 
 exports.listen = function (server) {
     io = socketio.listen(server);
@@ -81,40 +81,41 @@ exports.listen = function (server) {
             conversation = _.find(conversations, function (el) {
                 return el.room === conversationId;
             });
-            io.sockets.connected[conversation.callee].emit('message', {
+            io.sockets.connected[conversation.caller].emit('message', {
                 body: 'Jest nieźle :)'
-            })
+            });
+            socket.emit('joined', conversationId);
         });
 
         socket.on('call', function (recipient) {
-            var recipientId, randomNumber, conversationId;
+            var recipientId, randomNumber, conversationId, recipientSocket;
             
             randomNumber   = Math.floor((Math.random() * 9999) + 1);
-            conversationId = randomNumber.toString()
+            conversationId = randomNumber.toString();
             recipientId    = _.findKey(usernames, function (name) {
-                return name === recipient
+                return name === recipient;
             });
             
             conversations.push({
-                callee: socket.id,
+                caller: socket.id,
                 recipient: recipientId,
                 room: conversationId
-            })
+            });
             recipientSocket = io.sockets.connected[recipientId];
             recipientSocket.emit('callReceived', {
-                callee: usernames[socket.id],
+                caller: usernames[socket.id],
                 room: conversationId
-            })
+            });
         });
         
         socket.on('rename', function (name) {
-            var previousName;
+            var previousName, previousNameIdx;
             if (namesTaken.indexOf(name) !== -1) {
                 socket.emit('renameResult', {
                     success: false,
                     message: name + 'has already been taken'
                 });
-            };
+            }
             previousName = usernames[socket.id];
             previousNameIdx = namesTaken.indexOf(previousName);
             namesTaken.push(name);

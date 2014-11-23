@@ -1,4 +1,5 @@
-var socket, ui, currentName, updateCurrentName, bindActiveUsers;
+/* global io, $, _ */
+var socket, ui, currentName;
 
 socket = io();
 
@@ -12,49 +13,63 @@ ui.$nameForm.submit(function (evt) {
     return false;
 });
 
-bindActiveUsers = function () {
+function bindActiveUsers() {
     $('.call').click(function () {
         var recipient;
         recipient = $(this).data('user');
         socket.emit('call', recipient);
-        ui.$jumbotron.html('<video id="local-video" autoplay></div>')
         showPreview();
     });
 }
 
-updateCurrentName = function (name) {
+function updateCurrentName(name) {
     currentName = name;
     ui.$currentName.text(name);
     ui.$nameForm.find('#name').val('');
 }
 
 socket.on('callReceived', function (res) {
-    console.log(res.callee, ' wants to talk with you.');
-    console.log('The conversation identifier is', res.room);
-    socket.emit('answerCall', res.room);
+    var $panel, $submit;
+    $panel  = $('#call-panel');
+    $submit = $panel.find('.btn-success');
+    $panel.find('.caller-name').text(res.caller);
+    $submit.data('room', res.room);
+    $panel.removeClass('hide');
+    $submit.click(function () {
+        socket.emit('answerCall', res.room);
+        $submit.unbind('click');
+        $panel.addClass('hide');
+    });
+});
+
+socket.on('joined', function (room) {
+    console.log('This peer has joined room ' + room);
+    isChannelReady = true;
+    navigator.getUserMedia(mediaConstraints, handleLocalStream, handleLocalStreamError);
+    console.log('Getting user media with constraints', mediaConstraints);
 });
 
 socket.on('idAssigned', function (res) {
     updateCurrentName(res.name);
-    console.log('Hey guest! You are now known as ' + res.name);
+    console.log('Hey guest! You are now known as', res.name);
 });
 
 socket.on('peerJoins', function (res) {
-    console.log('socket ' + res.socketId + ' joined this channel.');
+    console.log('socket', res.socketId, ' joined this channel.');
 });
 
 socket.on('created', function (res) {
-    console.log('socket ' + res.socketId + ' joined channel ' + res.channel);
+    console.log('socket', res.socketId, 'joined channel', res.channel);
 });
 
 socket.on('message', function (res) {
-    console.log('-- MESSAGE -- ' + res.body);
+    console.log('-- MESSAGE --', res.body);
 });
 
 socket.on('renameResult', function (res) {
     if (res.success) {
         updateCurrentName(res.name);
-        console.log('Your name has been changed to ' + res.name);
+        console.log('Your name has been changed to', res.name);
     } else {
         console.log(res.message);
     }

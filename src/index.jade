@@ -25,16 +25,22 @@ html
         #main.col-sm-7.col-md-9.col-lg-9
           .row
             .col-md-12
-              .jumbotron
-                h1 Hello!
-                p.
-                  This web application aims at providing a way to communicate with your friends
-                  without a need to install any external software!
-                #preview-btn.btn.btn-primary.btn-lg Turn on the camera
+              #call-panel.panel.panel-info.hide
+                .panel-heading
+                  p
+                    | Answer the call from 
+                    strong.caller-name Batko?
+                  .btn-group
+                    .btn.btn-success.btn-md Yes
+                    .btn.btn-danger.btn-md No
+          .row
+            .col-md-12
+              p Local peer
+              video#local-video(autoplay)
           .row
             .col-md-12
               p Remote peer
-              video#remote-video
+              video#remote-video(autoplay)
     script(type='text/javascript', src='/assets/vendor/js/jquery.js')
     script(type='text/javascript', src='/assets/vendor/js/lodash.compat.js')
     script(type='text/javascript', src='/socket.io/socket.io.js')
