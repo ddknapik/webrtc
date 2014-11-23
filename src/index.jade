@@ -4,46 +4,28 @@ html
     link(type='text/css', rel='stylesheet', href='/assets/vendor/css/bootstrap.css')
     link(type='text/css', rel='stylesheet', href='/assets/css/styles.css')
   body
-    .container
-      .row
-        .col-md-12
-          h1 WebRTC
-      .row
-        #sidebar.col-sm-5.col-md-3.col-lg-3
-          p
-            | You are currently known as 
-            strong#current-name
-          form#name-form.form-inline
-            .form-group
-              input#name.form-control(placeholder='Update your name...')
-            button.btn.btn-primary(type='submit') Submit
-          table#active-users.table.table-hover
-            thead
-              tr
-                th(colspan=2) Active users
-            tbody
-        #main.col-sm-7.col-md-9.col-lg-9
-          .row
-            .col-md-12
-              #call-panel.panel.panel-info.hide
-                .panel-heading
-                  p
-                    | Answer the call from 
-                    strong.caller-name Batko?
-                  .btn-group
-                    .btn.btn-success.btn-md Yes
-                    .btn.btn-danger.btn-md No
-          .row
-            .col-md-12
-              p Local peer
-              video#local-video(autoplay)
-          .row
-            .col-md-12
-              p Remote peer
-              video#remote-video(autoplay)
+    #mainDiv.container
+      table(border='1', width='100%')
+        tr
+          th Local video
+          th Remote video
+        tr
+          td
+            video#localVideo(autoplay='autoplay')
+          td
+            video#remoteVideo(autoplay='autoplay')
+        tr
+          td(align='center')
+            textarea#dataChannelSend(rows='4', columns='60', disabled='disabled')
+          td(align='center')
+            textarea#dataChannelReceive(rows='4', cols='60', disabled='disabled')
+        tr
+          td(align='center')
+            button#sendButton(disabled='disabled') Send
+
     script(type='text/javascript', src='/assets/vendor/js/jquery.js')
     script(type='text/javascript', src='/assets/vendor/js/lodash.compat.js')
     script(type='text/javascript', src='/socket.io/socket.io.js')
 
-    script(type='text/javascript', src='/assets/js/local_connection.js')
     script(type='text/javascript', src='/assets/js/adapter.js')
+    script(type='text/javascript', src='/assets/js/local_connection.js')
