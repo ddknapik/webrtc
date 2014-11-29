@@ -1,21 +1,26 @@
 var socketio = require('socket.io'), io;
 
+function countUsers(room) {
+    var users;
+    users = Object.keys( io.nsps['/'].adapter.rooms[room] || {} );
+    return users.length;
+}
+
 exports.listen = function (server) {
     io = socketio.listen(server);
 
     io.sockets.on('connection', function (socket) {
         socket.on('message', function (message) {
-            log('# got message: ', message);
+            // log('# got message: ', message);
             // channel-only broadcast
-            socket.broadcast.to(message.channel).emit('message', message);
+            socket.broadcast.to(message.channel).emit('message', 'dupa wolowa');
         });
 
         socket.on('create or join', function (room) {
-            var numClients = io.sockets.clients(room).length;
+            var numClients = countUsers(room);
 
             log('# Room' + room + ' has ' + numClients + ' client(s)');
             log('# Request to create or join room', room);
-
             if (numClients === 0) {
                 socket.join(room);
                 socket.emit('created', room);

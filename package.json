@@ -3,21 +3,24 @@
   "version": "0.0.1",
   "description": "Real-time web application with WebRTC.",
   "dependencies": {
-    "socket.io": "~1.0.6",
+    "http": "0.0.0",
+    "lodash": "^2.4.1",
     "mime": "~1.2.11",
-    "lodash": "^2.4.1"
+    "node-static": "^0.7.6",
+    "socket.io": "~1.0.6"
   },
   "devDependencies": {
+    "debug": "^2.1.0",
     "gulp": "^3.8.7",
     "gulp-clean": "^0.3.1",
+    "gulp-filter": "^1.0.1",
+    "gulp-flatten": "0.0.2",
     "gulp-jade": "^0.7.0",
     "gulp-livereload": "^2.1.1",
     "gulp-notify": "^1.5.0",
     "gulp-ruby-sass": "^0.7.1",
     "jade": "^1.6.0",
-    "tiny-lr": "^0.1.1",
     "main-bower-files": "^2.0.0",
-    "gulp-filter": "^1.0.1",
-    "gulp-flatten": "0.0.2"
+    "tiny-lr": "^0.1.1"
   }
 }
