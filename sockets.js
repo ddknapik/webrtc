@@ -13,7 +13,8 @@ exports.listen = function (server) {
         socket.on('message', function (message) {
             // log('# got message: ', message);
             // channel-only broadcast
-            socket.broadcast.to(message.channel).emit('message', 'dupa wolowa');
+            // socket.broadcast.to(message.channel).emit('message', message);
+            socket.broadcast.emit('message', message);
         });
 
         socket.on('create or join', function (room) {

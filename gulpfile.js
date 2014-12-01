@@ -1,6 +1,5 @@
 'use strict';
 var gulp       = require('gulp'),
-    sass       = require('gulp-ruby-sass'),
     livereload = require('gulp-livereload'),
     jade       = require('gulp-jade'),
     notify     = require('gulp-notify'),
@@ -9,11 +8,12 @@ var gulp       = require('gulp'),
     lr         = require('tiny-lr'),
     gulpFilter = require('gulp-filter'),
     flatten    = require('gulp-flatten'),
+    stylus     = require('gulp-stylus'),
     server     = lr();
 
 gulp.task('styles', function () {
-    return gulp.src('./src/stylesheets/**/*.scss')
-    .pipe(sass({style: 'expanded'}))
+    return gulp.src('./src/stylesheets/**/*.styl')
+    .pipe(stylus())
     .pipe(gulp.dest('./dist/assets/css'))
     .pipe(livereload(server))
     .pipe(notify({ message: 'styles task complete' }));
@@ -69,7 +69,7 @@ gulp.task('watch', function () {
         if (err) {
             return console.log(err);
         }
-        gulp.watch('./src/stylesheets/**/*.scss', ['styles']);
+        gulp.watch('./src/stylesheets/**/*.styl', ['styles']);
         gulp.watch('./src/scripts/**/*.js', ['scripts']);
         gulp.watch('./src/**/*.jade', ['templates']);
     });

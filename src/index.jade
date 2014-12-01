@@ -1,31 +1,37 @@
+doctype html
 html
   head
     title WebRTC Application
     link(type='text/css', rel='stylesheet', href='/assets/vendor/css/bootstrap.css')
+    link(type='text/css', rel='stylesheet', href='/assets/vendor/css/bootstrap.css')
+    link(type='text/css', rel='stylesheet', href='/assets/vendor/css/font-awesome.css')
     link(type='text/css', rel='stylesheet', href='/assets/css/styles.css')
+    link(type='text/css', rel='stylesheet', href='http://fonts.googleapis.com/css?family=PT+Sans:400,700')
   body
-    #mainDiv.container
-      table(border='1', width='100%')
-        tr
-          th Local video
-          th Remote video
-        tr
-          td
-            video#localVideo(autoplay='autoplay')
-          td
-            video#remoteVideo(autoplay='autoplay')
-        tr
-          td(align='center')
-            textarea#dataChannelSend(rows='4', columns='60', disabled='disabled')
-          td(align='center')
-            textarea#dataChannelReceive(rows='4', cols='60', disabled='disabled')
-        tr
-          td(align='center')
-            button#sendButton(disabled='disabled') Send
+    h1 We have to talk.
+    .image_container
+      .inner_content
+          input.conversation_id(value='cnvrst.on/fdsuf79sdhf98')
+          .call_to_action Copy your unique conversation ID!
+          h2 or
+          .join_conversation Join an existing conversation
+        .how_does_it_work How does it work?
+    .guide
+      .circles
+        .circle
+          i.fa.fa-link
+        .chain &#183; &#183; &#183;
+        .circle
+          i.fa.fa-video-camera
+        .chain &#183; &#183; &#183;
+        .circle
+          i.fa.fa-user.front_peer
+          i.fa.fa-user.bg_peer
 
     script(type='text/javascript', src='/assets/vendor/js/jquery.js')
     script(type='text/javascript', src='/assets/vendor/js/lodash.compat.js')
     script(type='text/javascript', src='/socket.io/socket.io.js')
 
+    script(type='text/javascript', src='/assets/js/ui.js')
     script(type='text/javascript', src='/assets/js/adapter.js')
     script(type='text/javascript', src='/assets/js/local_connection.js')
