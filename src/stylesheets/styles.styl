@@ -139,6 +139,12 @@ html, body
       position absolute
       top 30px
       right 30px
+  .instructions
+    h3
+      color rgb(255, 83, 13)
+      display inline
+      font-family 'Pt Sans'
+      font-size 18px
 
   .chain
     display inline-block
@@ -151,6 +157,45 @@ html, body
     font-family 'PT Sans'
     color #ff6600
 
+.footer
+  background-color #353740
+  font-family 'Pt Serif'
+  font-size 16px
+  margin 0 auto
+  text-align center
+  padding-top 50px
+  padding-bottom 30px
+  .links
+    width 100%
+  a
+    color rgb(255, 255, 255)
+    text-decoration none
+    line-height 24px
+    &:not(:last-child)
+      &::after
+        content ''
+        border-radius(50%)
+        position relative
+        display inline-block
+        background-color rgb(255, 255, 255)
+        height 5px
+        width 5px
+        line-height 24px
+        vertical-align middle
+        text-align center
+        color rgb(255, 255, 255)
+        margin 0 15px
+  .heart
+    color rgb(95, 98, 115)
+    display block
+    font-size 16px
+    margin-top 50px
+    margin-bottom 10px
+  p
+    color: rgb(164, 171, 191);
+    font-family: 'Pt Serif';
+    font-size: 12px;
+    line-height: 22px;
 
 h2
   color rgb(255, 255, 255)

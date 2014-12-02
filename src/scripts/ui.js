@@ -14,6 +14,7 @@ $(function () {
         $section.animate({
             'margin-top': '-' + distanceToMove + 'px'
         }, 600, function () {
+            // $section.css({ position: 'fixed', top: distanceToMove });
             console.log('fsdfdsf');
         });
     }
