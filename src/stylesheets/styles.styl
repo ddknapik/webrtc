@@ -110,53 +110,73 @@ html, body
   
 .guide
   background-color rgb(255, 255, 255)
-  position relative
   width 100%
   margin 0 auto
-  height 180px
-  .circles
-    padding 40px 0
-    position absolute
-    margin 0 0 0 -25%
-    left 50%
-  .circle
-    border-radius(50%)
-    position relative
-    display inline-block
-    background-color #ff6600
-    height 100px
-    width 100px
-    line-height 100px
+  text-align center
+  position relative
+  z-index 999
+  p
+    display block
+    max-width 900px
+    margin 0 auto
+    color rgb(95, 98, 115)
+    font-family 'PT Serif'
+    font-size 1.3em
+    padding 60px 0
+  .instruction_step
+    width 31.6455696%
+    max-width 300px
     text-align center
-    font-size 32px
-    color rgb(255, 255, 255)
-    .fa-link
-      transform rotate(-45deg)
-    .front_peer
-      margin-left -10px
-    .bg_peer
-      font-size 26px
+    display inline-block
+    margin-bottom 60px
+    position relative
+    .chain
+      display inline
+      height 100px
+      line-height 72px
+      font-size 72px
+      margin 0 30px
       position absolute
-      top 30px
-      right 30px
-  .instructions
+      overflow visible
+      top 10px
+      font-family 'PT Sans'
+      color #ff6600
+    .circle
+      display inline-block
+      position relative
+      margin 0 auto
+      border-radius(50%)
+      background-color #ff6600
+      height 100px
+      width 100px
+      line-height 100px
+      text-align center
+      font-size 32px
+      color rgb(255, 255, 255)
+      .fa-link
+        transform rotate(-45deg)
+      .front_peer
+        margin-left -10px
+      .bg_peer
+        font-size 26px
+        position absolute
+        top 30px
+        right 30px
     h3
       color rgb(255, 83, 13)
-      display inline
       font-family 'Pt Sans'
-      font-size 18px
-
-  .chain
-    display inline-block
-    height 100px
-    line-height 72px
-    font-size 72px
-    margin 0 30px
-    position relative
-    top 10px
-    font-family 'PT Sans'
-    color #ff6600
-
+      font-size 1.3em
+    small
+      font-family 'Pt Serif'
+      font-size 1em
+      color rgb(95, 98, 115)
+.dupa
+  position absolute
+  top 100%
+  display inline
+  width 100%
+  height 300px
+  background-color #a7ff5b
 .footer
   background-color #353740
   font-family 'Pt Serif'

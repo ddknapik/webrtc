@@ -7,15 +7,21 @@ $(function () {
     // }, 800);
 
     function moveGuideSection() {
-        var $section, distanceToMove;
-        $section = $('.guide');
-
-        distanceToMove = $(document).height() - $('.image_container').height();
-        $section.animate({
-            'margin-top': '-' + distanceToMove + 'px'
-        }, 600, function () {
-            // $section.css({ position: 'fixed', top: distanceToMove });
-            console.log('fsdfdsf');
+        var $section, distanceToMove, imageHeight, offset, batko;
+        $section    = $('.guide');
+        batko = $(window).height() - $('.guide').height();
+        imageHeight = $('.image_container').height() - batko;
+        console.log(imageHeight);
+        $section.css({ position: 'fixed', bottom: 0 });
+        $(window).scroll(function (event) {
+            offset = $('body').scrollTop();
+            console.log(offset);
+            if (offset >= imageHeight) {
+                console.log('fsdfdsfdsfsd');
+                $section.css({ position: 'static' });
+                $(window).unbind();
+                return;
+            }
         });
     }
 
