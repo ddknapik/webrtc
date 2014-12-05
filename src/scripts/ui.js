@@ -1,7 +1,31 @@
 /* global $:false, ZeroClipboard:false, _:false */
 $(function () {
-    var clipboardClient;
+    var clipboardClient, mediaConstraints, isInitiator, localStream;
+    mediaConstraints = { video: true, audio: true };
+    
     $('.conversation_id').select();
+
+    function handleLocalStreamError (err) {
+        console.log(err);
+    }
+
+    function setupLocalVideo(stream) {
+        var videoSrc;
+        localStream = stream;
+        videoSrc    = window.URL ? URL.createObjectURL(stream) : stream;
+        ui.$localVideo.attr('src', videoSrc);
+        ui.$localVideo.show();
+    }
+
+    function showPreview() {
+        console.log('Obtaining access to camera and microphone.');
+        // ui.$localVideo.hide();
+        isInitiator = true;
+        // isChannelReady = true;
+        navigator.getUserMedia(mediaConstraints, setupLocalVideo, handleLocalStreamError);
+        setupPeerConnection();
+    }
+
 
     // setTimeout(function(){
     //     $('.inner_content').css('opacity', '1');
@@ -38,6 +62,7 @@ $(function () {
 
         // $('.inner_content')
         tpl = _.template( $('#video-tpl').html() );
+
         $('.image_container').prepend(tpl);
         $('.video_overlay').slideDown();
     });
