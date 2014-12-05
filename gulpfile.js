@@ -51,7 +51,7 @@ gulp.task('bower', function () {
 
     .pipe(fontFilter)
     .pipe(flatten())
-    .pipe(gulp.dest('dist/assets/vendor/fonts'))
+    .pipe(gulp.dest('dist/assets/vendor/fonts'));
 });
 
 gulp.task('clean', function () {

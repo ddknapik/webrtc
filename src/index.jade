@@ -13,12 +13,10 @@ html
     .image_container
       .inner_content
           input.conversation_id(value='cnvrst.on/fdsuf79sdhf98')
-          .call_to_action Copy your unique conversation ID!
+          #copy_to_clipboard.call_to_action(data-clipboard-text='BATKO') Copy your unique conversation ID!
           h2 or
           .join_conversation Join an existing conversation
         .how_does_it_work How does it work?
-    .dupa
-      p ndsnlfjnlfsd
     .guide
       p
         | Designing a beautiful UI isn't easy when you're using ugly tools, so we went and built a tool
@@ -51,6 +49,8 @@ html
           br
           | Interfaces, We're Also Designers
         //- .chain &#183; &#183; &#183;
+    .dupa
+      p ndsnlfjnlfsd
     .footer
       .links
         a(href='') Terms of Use
@@ -62,8 +62,9 @@ html
 
     script(type='text/javascript', src='/assets/vendor/js/jquery.js')
     script(type='text/javascript', src='/assets/vendor/js/lodash.compat.js')
+    script(type='text/javascript', src='/assets/vendor/js/ZeroClipboard.js')
     script(type='text/javascript', src='/socket.io/socket.io.js')
 
     script(type='text/javascript', src='/assets/js/ui.js')
     script(type='text/javascript', src='/assets/js/adapter.js')
-    script(type='text/javascript', src='/assets/js/local_connection.js')
+    //- script(type='text/javascript', src='/assets/js/local_connection.js')
