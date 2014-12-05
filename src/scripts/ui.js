@@ -1,4 +1,4 @@
-/* global $:false, ZeroClipboard:false */
+/* global $:false, ZeroClipboard:false, _:false */
 $(function () {
     var clipboardClient;
     $('.conversation_id').select();
@@ -33,11 +33,12 @@ $(function () {
     clipboardClient = new ZeroClipboard( document.getElementById('copy_to_clipboard') );
 
     clipboardClient.on('aftercopy', function (event) {
-        var copiedData = event.data['text/plain'];
+        var tpl, copiedData = event.data['text/plain'];
         console.log(copiedData);
 
         // $('.inner_content')
-        $('body').prepend("<div class='video_overlay'>DUPA</div>");
+        tpl = _.template( $('#video-tpl').html() );
+        $('.image_container').prepend(tpl);
         $('.video_overlay').slideDown();
     });
 
