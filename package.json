@@ -1,6 +1,6 @@
 {
   "name": "webrtc",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Real-time web application with WebRTC.",
   "dependencies": {
     "socket.io": "~1.0.6",
